@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Page</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Layout utama */
+    .container {
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+
+    /* Header di atas */
+    header {
+      background-color: #333;
+      padding: 10px;
+      text-align: right;
+    }
+
+    /* 
+        Flexbox diaktifkan pada elemen dengan properti display: flex. Ini berarti elemen main sekarang akan menjadi container 
+        flex dan semua elemen anak di dalamnya (misalnya sidebar dan konten) akan dianggap sebagai flex items.
+        Dengan Flexbox, elemen di dalam main akan otomatis diatur dalam satu baris (secara horizontal) secara default.
+    */
+
+    /* Konten utama dengan sidebar dan content */
+    .main {
+      display: flex;
+      flex: 1; /* biar jadi 1 baris, makanya main dibawah header */
+    }
+
+    /* aside dan konten, dalam 1 baris ke kanan makanya bisa berjejer */
+
+    /* Sidebar di kiri */
+    aside {
+      width: 200px;
+      background-color: #333;
+      color: white;
+      padding: 10px;
+    }
+
+    aside a{
+      color: white;
+    }
+
+    /* Isi konten di tengah */
+    .content {
+      flex: 1; /* dibuat agar sisanya di ambil untuk content, tar kalo ada lagi pasti di flex baru atau bawahnya */
+      padding: 10px;
+      background-color: #f9f9f9;
+    }
+
+    /* Footer di bawah */
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 10px;
+    }
+
+    /* Gaya dasar untuk tabel */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    table, th, td {
+      border: 1px solid #333;
+    }
+
+    th, td {
+      padding: 8px;
+      text-align: left;
+    }
+
+    /* Modal Styling */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: none; /* Modal di Hide */
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal {
+      background-color: white;
+      padding: 20px;
+      border-radius: 5px;
+      width: 300px;
+      max-width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+    <!-- Wrapper utama -->
+    <div class="container">
+
+        <!-- Header di atas -->
+        <header>
+            <button>Log Out</button>
+        </header>
+
+        <!-- Main Content: Sidebar + Content -->
+        <div class="main">
+        
+            <!-- Sidebar -->
+            <aside>
+                <h1>Admin Panel</h1>
+                <nav>
+                <ul>
+                    <li><a href="#">Dashboard</a></li>
+                    <li><a href="#">Users</a></li>
+                    <li><a href="#">Settings</a></li>
+                </ul>
+                </nav>
+            </aside>
+
+            <!-- Konten -->
+            <div class="content">
+                <h2>Daftar User</h2>
+                <button id="tambahUser" class="btn-tambah">Tambah User</button>
+                
+                <!-- Tabel -->
+                <table>
+                    <thead>
+                        <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                        <td>1</td>
+                        <td>John Doe</td>
+                        <td>Admin</td>
+                        <td>
+                            <button id="editUser">Edit</button>
+                            <button id="deleteUser">Delete</button>
+                        </td>
+                        </tr>
+                        <tr>
+                        <td>2</td>
+                        <td>Jane Smith</td>
+                        <td>Editor</td>
+                        <td>
+                            <button>Edit</button>
+                            <button>Delete</button>
+                        </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Footer di bawah -->
+        <footer>
+            &copy; 2024 Admin Dashboard
+        </footer>
+
+    </div>
+
+    <!-- Modal (Hidden by default) -->
+    <div id="modal-create" class="modal-overlay">
+        <div class="modal">
+            <h2>Tambah User</h2>
+            <form>
+                <label for="name">Nama:</label>
+                <input type="text" id="name" name="name" style="width: 95%;">
+                <div>
+                    <button type="button" id="closeModal">Batal</button>
+                    <button type="submit">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="modal-edit" class="modal-overlay">
+        <div class="modal">
+            <h2>Edit User</h2>
+            <form>
+                <label for="name">Nama:</label>
+                <input type="text" id="name" name="name" style="width: 95%;">
+                <div>
+                    <button type="button" id="closeModal">Batal</button>
+                    <button type="submit">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const modalCreate = document.getElementById('modal-create');
+        const tambahUserBtn = document.getElementById('tambahUser');
+    
+        tambahUserBtn.addEventListener('click', () => {
+            modalCreate.style.display = 'flex';  // bisa flex bisa block, kalo block gag tengah
+        });
+
+        // sembunyikan modal jika klik diluar modal
+        window.addEventListener('click', (event) => {
+            if (event.target === modalCreate) {
+                modalCreate.style.display = 'none';
+            }
+            if (event.target === modalEdit) {
+                modalEdit.style.display = 'none';
+            }
+        });
+
+        const modalEdit = document.getElementById('modal-edit');
+        const editUserBtn = document.getElementById('editUser');
+
+        editUserBtn.addEventListener('click', () => {
+            modalEdit.style.display = 'flex';
+        });
+
+        const deleteUserBtn = document.getElementById('deleteUser')
+
+        deleteUserBtn.addEventListener('click', () => {
+            if (confirm("Apakah kamu yakin mau delete user ini ? ")) {
+                alert("User berhasil di delete! ");
+            }
+        });
+    </script>
+</body>
+</html>

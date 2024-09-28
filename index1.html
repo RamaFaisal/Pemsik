@@ -12,25 +12,28 @@
       .container {
         display: flex;
         flex-direction: column;
+        height: 100vh;
       }
 
       header {
-        background-color: antiquewhite;
+        background-color: #001f3f;
         padding: 10px;
         text-align: right;
       }
 
       .main {
         display: flex;
+        flex: 1;
       }
 
       aside {
-        background-color: chartreuse;
+        background-color: #001f3f;
+        width: 200px;
         padding: 10px;
       }
 
       .content {
-        background-color: aqua;
+        background-color: #ffffff;
         flex: 1;
         padding: 10px;
       }
@@ -47,10 +50,23 @@
         align-items: center;
       }
 
+      .modal {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        width: 300px;
+      }
+
+      ul li a {
+        text-decoration: none;
+        color: white;
+      }
+
       footer {
-        background-color: darkgrey;
+        background-color: #001f3f;
         text-align: center;
         padding: 10px;
+        color: white;
       }
     </style>
   </head>
@@ -62,9 +78,9 @@
 
       <div class="main">
         <aside>
-          <h2>Admin Panel</h2>
+          <h2 style="color: white">Admin Panel</h2>
           <nav>
-            <ul>
+            <ul style="color: white">
               <li><a href="">Dashboard</a></li>
               <li><a href="">Mahasiswa</a></li>
               <li><a href="">Settings</a></li>
@@ -74,53 +90,135 @@
 
         <div class="content">
           <h2>Daftar Mahasiswa</h2>
-          <button id="button-tambah">Tambah Mahasiswa</button><br />
+          <button id="buttonTambah">Tambah Mahasiswa</button><br />
           <table border="1">
             <thead>
-              <th>No.</th>
-              <th>Nama</th>
-              <th>Nim</th>
+              <tr>
+                <th>No.</th>
+                <th>Nama</th>
+                <th>Nim</th>
+                <th>Action</th>
+              </tr>
             </thead>
             <tbody>
               <tr>
                 <td>1</td>
                 <td>Rama</td>
                 <td>A11.2022.11111</td>
+                <td>
+                  <button id="buttonEdit">Edit</button>
+                  <button id="buttonHapus">Delete</button>
+                </td>
               </tr>
               <tr>
                 <td>2</td>
                 <td>Faisal</td>
                 <td>A11.2022.22222</td>
+                <td>
+                  <button id="buttonEdit">Edit</button>
+                  <button id="buttonHapus">Delete</button>
+                </td>
               </tr>
               <tr>
                 <td>3</td>
                 <td>Muntaha</td>
                 <td>A11.2022.33333</td>
+                <td>
+                  <button id="buttonEdit">Edit</button>
+                  <button id="buttonHapus">Delete</button>
+                </td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
 
-      <footer>&copy; Admin 2024</footer>
+      <footer style="color: white;">&copy; Admin 2024</footer>
 
       <div id="modal-tambah" class="modal-overlay">
         <div class="modal">
           <h2>Tambah Mahasiswa</h2>
           <form action="">
-            <label for="">Nama:</label>
-            <input type="text" />
+            <label for="">Nama:</label><br />
+            <input
+              type="text"
+              style="margin-top: 10px; margin-bottom: 10px; width: 100%"
+            />
           </form>
+          <button
+            id="buttonBatal"
+            style="
+              margin-right: 10px;
+              border-radius: 5px;
+              background: transparent;
+            "
+          >
+            Batal
+          </button>
+          <button style="border-radius: 5px; background: transparent">
+            Simpan
+          </button>
+        </div>
+      </div>
+
+      <div id="modal-edit" class="modal-overlay">
+        <div class="modal">
+          <h2>Edit Mahasiswa</h2>
+          <form action="">
+            <label for="">Nama:</label><br />
+            <input
+              type="text"
+              style="margin-top: 10px; margin-bottom: 10px; width: 100%"
+            />
+          </form>
+          <button
+            id="buttonBatalEdit"
+            style="
+              margin-right: 10px;
+              border-radius: 5px;
+              background: transparent;
+            "
+          >
+            Batal
+          </button>
+          <button style="border-radius: 5px; background: transparent">
+            Simpan
+          </button>
         </div>
       </div>
     </div>
 
     <script>
+      const closeButton = document.getElementById("buttonBatal");
       const modalTambah = document.getElementById("modal-tambah");
-      const buttonTambah = document.getElementById("button-tambah");
+      const buttonTambah = document.getElementById("buttonTambah");
 
       buttonTambah.addEventListener("click", () => {
         modalTambah.style.display = "flex";
+      });
+      closeButton.addEventListener("click", () => {
+        modalTambah.style.display = "none";
+      });
+
+      // Edit Data
+      const closeButtonEdit = document.getElementById("buttonBatalEdit");
+      const modalEdit = document.getElementById("modal-edit");
+      const buttonEdit = document.getElementById("buttonEdit");
+
+      buttonEdit.addEventListener("click", () => {
+        modalEdit.style.display = "flex";
+      });
+
+      closeButtonEdit.addEventListener("click", () => {
+        modalEdit.style.display = "none";
+      });
+      // Delete Data
+      const modalHapus = document.getElementById("buttonHapus");
+
+      modalHapus.addEventListener("click", () => {
+        if (confirm("Apakah kamu yakin mau delete user ini ? ")) {
+          alert("User berhasil di delete! ");
+        }
       });
     </script>
   </body>
