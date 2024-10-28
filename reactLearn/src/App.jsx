@@ -1,28 +1,13 @@
-import React, { useState } from "react";
-import Sider from "./Sider";
-import Header from "./Header";
-import Footer from "./Footer";
-import MainContent from "./MainContent";
+import React from "react";
+import AdminLayout from "./Layouts/AdminLayout";
+import Mahasiswa from "./Pages/Admin/Mahasiswa";
 
-const App = () => {
+function App() {
   return (
-    <div className="flex min-h-screen">
-      {/* Sidebar */}
-      <Sider />
-
-      {/* Content Area */}
-      <div className="flex flex-col flex-1">
-        {/* Header */}
-        <Header />
-
-        {/* Main Content */}
-        <MainContent />
-
-        {/* Footer */}
-        <Footer />
-      </div>
-    </div>
+    <AdminLayout>
+      <Mahasiswa />
+    </AdminLayout>
   );
-};
+}
 
 export default App;
