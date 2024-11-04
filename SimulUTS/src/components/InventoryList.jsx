@@ -18,7 +18,7 @@ const InventoryList = ({ items }) => {
         placeholder="Cari barang berdasarkan nama atau kategori..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        className="p-2 border border-gray-300 mb-4"
+        className="p-2 border border-gray-300 mb-4 w-[340px]"
       />
       <table className="border-2 min-w-full table-auto">
         <thead>
