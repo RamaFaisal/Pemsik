@@ -1,6 +1,16 @@
 import React from "react";
+import { Outlet, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const AdminLayout = ({ children }) => {
+  const navigate = useNavigate();
+  const hanldeLogout = () => {
+    localStorage.removeItem("authToken");
+    Swal.fire({
+      icon: 'success',
+      title: 'Logout Berhasil',
+    });
+  }
   return (
     <div className="flex min-h-screen bg-gray-100">
       <aside className="w-64 bg-indigo-900 text-white p-4">

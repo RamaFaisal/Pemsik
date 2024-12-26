@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 
 const Table = ({ data }) => {
   const handleEdit = (item) => {
-    console.log("Edit:", item);
+    console.log("Edit: ", item);
   };
 
   const handleDelete = (item) => {

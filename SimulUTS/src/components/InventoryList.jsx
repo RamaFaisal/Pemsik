@@ -23,11 +23,11 @@ const InventoryList = ({ items }) => {
       <table className="border-2 min-w-full table-auto">
         <thead>
           <tr>
-            <th className="px-4 py-2">Nama Barang</th>
-            <th className="px-4 py-2">Kategori</th>
-            <th className="px-4 py-2">Stok</th>
-            <th className="px-4 py-2">Harga</th>
-            <th className="px-4 py-2">Detail</th>
+            <th className="px-4 py-2 text-left">Nama Barang</th>
+            <th className="px-4 py-2 text-left">Kategori</th>
+            <th className="px-4 py-2 text-left">Stok</th>
+            <th className="px-4 py-2 text-left">Harga</th>
+            <th className="px-4 py-2 text-left">Detail</th>
           </tr>
         </thead>
         <tbody>
